@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ticket-Shop</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 20px;
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+
+      .ticket-form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .ticket-form label {
+        font-weight: bold;
+      }
+
+      .ticket-form select,
+      .ticket-form input {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      .button {
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      .button:hover {
+        background-color: #0056b3;
+      }
+
+      .message {
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 4px;
+        display: none;
+      }
+
+      .message-success {
+        background-color: #d4edda;
+        color: #155724;
+      }
+
+      .message-error {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+
+      .ticket-list {
+        margin-top: 20px;
+      }
+
+      .ticket-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .back-link {
+        display: block;
+        margin-top: 20px;
+        text-align: center;
+        color: #007bff;
+        text-decoration: none;
+      }
+
+      .back-link:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Ticket-Shop</h1>
+
+      <p>Wähle ein Ticket aus und gib die Anzahl an.</p>
+
+      <div class="ticket-form">
+        <div>
+          <label for="ticketType">Ticket-Typ</label>
+          <select id="ticketType">
+            <option value="standard">Standard (€10)</option>
+            <option value="vip">VIP (€25)</option>
+            <option value="premium">Premium (€45)</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="ticketQuantity">Anzahl</label>
+          <input id="ticketQuantity" type="number" min="1" value="1" />
+        </div>
+
+        <button id="buyButton" class="button">Kaufen</button>
+      </div>
+
+      <div id="message" class="message"></div>
+
+      <div class="ticket-list">
+        <h2>Verfügbare Tickets</h2>
+        <div id="ticketList"></div>
+      </div>
+
+      <a href="index.html" class="back-link">Zurück zur Startseite</a>
+    </div>
+
+    <script>
+      const DEFAULT_TICKETS = {
+        standard: { label: "Standard", price: 10, available: 100 },
+        vip: { label: "VIP", price: 25, available: 50 },
+        premium: { label: "Premium", price: 45, available: 25 },
+      };
+
+      const STORAGE_KEY = "ticketShopState";
+
+      function loadState() {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          return {
+            tickets: JSON.parse(JSON.stringify(DEFAULT_TICKETS)),
+            purchases: {},
+          };
+        }
+
+        try {
+          return JSON.parse(raw);
+        } catch (err) {
+          return {
+            tickets: JSON.parse(JSON.stringify(DEFAULT_TICKETS)),
+            purchases: {},
+          };
+        }
+      }
+
+      function saveState(state) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      }
+
+      function formatPrice(value) {
+        return `€${value.toFixed(2)}`;
+      }
+
+      function renderTickets(state) {
+        const ticketList = document.getElementById("ticketList");
+        ticketList.innerHTML = "";
+
+        Object.entries(state.tickets).forEach(([key, ticket]) => {
+          const item = document.createElement("div");
+          item.className = "ticket-item";
+          item.innerHTML = `
+            <span>${ticket.label} - ${formatPrice(ticket.price)}</span>
+            <span>Verfügbar: ${ticket.available}</span>
+          `;
+          ticketList.appendChild(item);
+        });
+      }
+
+      function showMessage(text, type = "success") {
+        const message = document.getElementById("message");
+        message.textContent = text;
+        message.className = `message ${type === "success" ? "message-success" : "message-error"}`;
+        message.style.display = "block";
+
+        setTimeout(() => {
+          message.style.display = "none";
+        }, 4000);
+      }
+
+      function buyTickets() {
+        const state = loadState();
+        const ticketType = document.getElementById("ticketType").value;
+        const quantity = parseInt(document.getElementById("ticketQuantity").value, 10);
+
+        if (!ticketType || Number.isNaN(quantity) || quantity < 1) {
+          showMessage("Bitte wähle einen gültigen Ticket-Typ und eine Anzahl größer als 0.", "error");
+          return;
+        }
+
+        const ticket = state.tickets[ticketType];
+        if (!ticket) {
+          showMessage("Der gewählte Ticket-Typ existiert nicht.", "error");
+          return;
+        }
+
+        if (quantity > ticket.available) {
+          showMessage(`Es sind nur noch ${ticket.available} ${ticket.label}-Tickets verfügbar.`, "error");
+          return;
+        }
+
+        ticket.available -= quantity;
+        state.purchases[ticketType] = (state.purchases[ticketType] || 0) + quantity;
+
+        saveState(state);
+        renderTable(state);
+        showMessage(`Du hast ${quantity} ${ticket.label}-Ticket(s) gekauft.`, "success");
+      }
+
+      document.getElementById("buyButton").addEventListener("click", buyTickets);
+
+      renderTickets(loadState());
+    </script>
+  </body>
+</html>

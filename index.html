@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekt Informatik</title>
+    <style>
+      /* Hintergrundbild */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-image: url('Retro meets modern gaming setup.png');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: white;
+      }
+      .content {
+        position: relative;
+        top: 20px; /* etwas Abstand von oben */
+        left: 0;
+        width: 100%;
+        color: white;
+        text-align: center;
+        text-shadow: 0 0 5px rgba(0,0,0,0.7);
+      }
+      /* Menü-Button */
+      .menu-button {
+        position: fixed;
+        top: 16px;
+        left: 16px;
+        width: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        z-index: 20;
+      }
+      .menu-button a {
+        color: white;
+        text-decoration: none;
+        font-size: 14px;
+        padding: 5px 10px;
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 4px;
+        transition: background-color 0.3s;
+      }
+      .menu-button a:hover {
+        background-color: rgba(0, 102, 255, 0.5);
+      }
+      .controller-section {
+        position: relative;
+        margin-top: 300px; /* reduced space to prevent shifting */
+        text-align: center;
+        z-index: 10;
+      }
+      .controller-text {
+        font-size: 18px;
+        margin-bottom: 50px;
+        font-weight: 500;
+      }
+      .btn-blue {
+        background-color: #0066ff;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-weight: 600;
+      }
+      .btn-blue:hover {
+        background-color: #0052cc;
+      }
+      .fakt-anzeige {
+        margin-top: 30px;
+        padding: 20px;
+        background-color: rgba(11, 15, 42, 0.9);
+        border: 2px solid #0066ff;
+        border-radius: 8px;
+        font-size: 18px;
+        line-height: 1.6;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        display: none;
+        animation: fadeIn 0.5s ease-in;
+        color: white;
+      }
+      .fakt-anzeige.visible {
+        display: block;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .karten-container {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        padding: 60px 20px;
+        flex-wrap: wrap;
+      }
+      .karte {
+        /* base styling for the card frames */
+        background-color: rgba(0, 0, 0, 0.4); /* darker overlay so text stays readable */
+        border: 2px solid #0066ff;
+        border-radius: 10px;
+        padding: 30px;
+        width: 280px;
+        min-height: 200px; /* ensure enough space for background images */
+        text-align: center;
+        color: white;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
+      }
+      /* card variations with specific background images */
+      .karte.frueheres-gaming { background-image: url('früheres gaming.png'); }
+      .karte.heimkonsole { background-image: url('heimkonsolen.png'); }
+      .karte.modernes-gaming { background-image: url('modernes gaming.png'); }
+      .karte:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(0, 102, 255, 0.3);
+      }
+      .karte h3 {
+        font-size: 20px;
+        margin-bottom: 15px;
+        color: #66d9ff;
+      }
+    </style>
+  </head>
+  <body>
+     <!-- Menüpunkte -->
+    <div class="menu-button">
+      <a href="Informationen_Arbeiter.html">Kontakte</a>
+      <a href="Tickets.html">Tickets</a>
+      <a href="Standort.html">Standort</a>
+    </div>
+    <div class="content">
+      <h1>Geschichte der Gaming Spiele und deren Konsolen</h1>
+    </div>
+    <div class="controller-section">
+      <p style="color: white;"class="controller-text">Viedeospiele haben sich in wenigen Jahrzehnten von einfachen Pixelspielen zu realistischen 3D- Welten entwickelt.
+        Dieses Museum zeigt dir die wichtigsten Entwicklungen der Gaming Geschichte.
+      </p>
+      <button class="btn-blue" id="faktBtn">Wusstest du schon</button>
+      <div class="fakt-anzeige" id="faktAnzeige"></div>
+      
+      <div class="karten-container">
+          <div class="karte frueheres-gaming">
+          <h3>Frühere Spielkonsolen</h3>
+          <p>Die Anfänge der Videospielindustrie mit einfachen elektronischen Spielen und den ersten Heimkonsolen.</p>
+        </div>
+        <div class="karte heimkonsole">
+          <h3>Heimkonsolen</h3>
+          <p>Die Revolution der Wohnzimmer mit Nintendo, Sega und PlayStation - die Spiele für alle zugänglich machten.</p>
+        </div>
+        <div class="karte modernes-gaming">
+          <h3>Modernes Gaming</h3>
+          <p>Die aktuelle Generation mit hochauflösenden Grafiken, Cloud Gaming und virtuellen Welten.</p>
+        </div>
+      </div>
+    </div>
+
+     <!-- Informationen -->
+    <div border: 2px solid #0066ff; style="background-color: rgb(126, 72, 72); margin: 20px; border-radius: 10px; padding: 20px;">
+     <section id="jahr1980er" style="padding:40px 20px; color:white;">
+      <h2>Die 1980er</h2>
+      <p>Die 1980er Jahre waren ein magisches Jahrzehnt für Videospiele – eine Zeit, in der aus einfachen Pixeln große Abenteuer entstanden und die Grundlage für die heutige Gaming-Welt gelegt wurde. Wer heute moderne Spiele liebt, sollte einen Blick zurückwerfen, denn genau hier begann alles. Schon beim Betreten einer Ausstellung über diese Ära fühlt man sich sofort in eine andere Zeit versetzt: blinkende Bildschirme, klassische Sounds und ikonische Konsolen wie das Atari 2600 lassen die Geschichte lebendig werden.
+
+Dieses frühe System brachte Videospiele erstmals in die Wohnzimmer und begeisterte Millionen von Menschen. Kurz darauf folgten weitere Meilensteine wie das ColecoVision und später das legendäre Nintendo Entertainment System, das die Branche revolutionierte und bis heute Kultstatus genießt. Auch das Sega Master System zeigte, wie schnell sich Technik und Spielideen weiterentwickelten. In einem Museum kann man diese Geräte nicht nur sehen, sondern oft sogar selbst ausprobieren – ein Erlebnis, das Generationen verbindet.
+
+Doch die eigentliche Magie liegt in den Spielen. Titel wie Pac-Man oder Space Invaders wirken auf den ersten Blick simpel, entfalten aber schnell ihren unwiderstehlichen Charme. Spätestens wenn man selbst den Controller in die Hand nimmt, versteht man, warum diese Spiele ganze Spielhallen füllten. Mit Super Mario Bros. begann dann eine neue Ära voller Abenteuer, während Donkey Kong bereits früh zeigte, wie spannend Spiele mit Figuren und Geschichten sein können.
+
+Ein Museumsbesuch rund um die Spielkonsolen der 80er ist daher weit mehr als nur ein Blick in die Vergangenheit – es ist eine Reise zurück zu den Ursprüngen der digitalen Unterhaltung. Hier kann man nicht nur staunen, sondern selbst erleben, wie alles begann. Die Mischung aus Nostalgie, interaktiven Stationen und zeitlosen Klassikern macht diesen Ausflug zu einem unvergesslichen Erlebnis – für Gaming-Fans ebenso wie für Neugierige. Wer einmal in diese Welt eintaucht, wird schnell verstehen: Die Faszination der 80er lebt bis heute weiter.
+</p>
+</section>
+  </div>
+<div border: 2px solid #0066ff; style="background-color: rgb(126, 72, 72); margin: 20px; border-radius: 10px; padding: 20px;">
+    <section id="jahr1990er" style="padding:40px 20px; color:white;">
+      <h2>Die 1990er</h2>
+      <p>Die 1990er Jahre gelten als die goldene Ära der Videospiele – ein Jahrzehnt voller Innovationen, ikonischer Figuren und technischer Durchbrüche. Wer sich heute mit dieser Zeit beschäftigt, begibt sich auf eine faszinierende Reise zurück zu den Momenten, in denen Gaming seinen entscheidenden Entwicklungsschritt machte. Schon beim Gedanken an legendäre Konsolen wie das Super Nintendo Entertainment System, das Sega Mega Drive, das Nintendo 64 oder die revolutionäre Sony PlayStation wird sofort klar, wie stark diese Ära die heutige Spielewelt geprägt hat.
+
+In den 90ern entwickelte sich die Technik rasant weiter: Aus einfachen 2D-Spielen wurden lebendige 3D-Welten, und aus kurzen Spielrunden entstanden große, zusammenhängende Abenteuer. Besonders das Nintendo 64 eröffnete mit seiner dreidimensionalen Grafik völlig neue Möglichkeiten, während die PlayStation durch die Nutzung von CDs umfangreichere und filmisch inszenierte Spiele hervorbrachte. Diese Entwicklung lässt sich heute besonders eindrucksvoll in Museen erleben, wo die Geräte nicht nur ausgestellt sind, sondern oft auch ausprobiert werden können.
+
+Die Spiele dieser Zeit machten die 90er unvergesslich. Titel wie Super Mario 64 ermöglichten erstmals das freie Bewegen in einer offenen 3D-Welt, The Legend of Zelda: Ocarina of Time begeisterte mit einer epischen Geschichte und einer lebendigen Spielwelt, und Final Fantasy VII zeigte, dass Videospiele emotionale und tiefgründige Geschichten erzählen können.
+
+Ein Museumsbesuch rund um die Spielkonsolen der 90er ist deshalb weit mehr als nur ein Blick in die Vergangenheit. Es ist eine Reise zu den Ursprüngen moderner Spiele, bei der man selbst erleben kann, wie aus einfachen Ideen eine weltweite Kultur entstand. Die Mischung aus Nostalgie, technischer Entwicklung und interaktivem Erleben macht diese Epoche besonders spannend. Wer einmal in diese Welt eintaucht, wird schnell merken, warum die 90er bis heute als eines der wichtigsten Jahrzehnte der Videospielgeschichte gelten – und warum sich ein Besuch im Museum auf jeden Fall lohnt.
+</p>
+    </section>
+  </div>
+  <div border: 2px solid #0066ff; style="background-color: rgb(126, 72, 72); margin: 20px; border-radius: 10px; padding: 20px;">
+    <section id="heute" style="padding:40px 20px; color:white;">
+      <h2>Heutiges Gaming</h2>
+      <p>Heutiges Gaming ist mehr als nur Unterhaltung – es ist eine eigene Welt, die Technik, Kunst und Gemeinschaft miteinander verbindet. Wer sich heute mit modernen Videospielen beschäftigt oder eine entsprechende Ausstellung besucht, erlebt nicht nur Spiele, sondern ganze Universen. Aktuelle Konsolen wie die PlayStation 5, die Xbox Series X oder die hybride Nintendo Switch zeigen eindrucksvoll, wie weit sich Gaming entwickelt hat – von einfachen Pixeln hin zu fotorealistischen Welten.
+
+Die Technik hinter modernen Spielen ermöglicht heute atemberaubende Grafiken, riesige offene Welten und flüssige Online-Erlebnisse mit Spielern aus der ganzen Welt. Dank leistungsstarker Hardware und dem Internet sind Spiele nicht mehr nur lokal spielbar, sondern verbinden Millionen Menschen miteinander. In Museen oder interaktiven Ausstellungen kann man diese Entwicklung hautnah nachvollziehen – von den ersten Schritten bis hin zu Virtual Reality und immersiven Spielerlebnissen.
+
+Auch die Spiele selbst haben eine neue Dimension erreicht. Titel wie The Legend of Zelda: Breath of the Wild bieten riesige, frei erkundbare Welten, während Fortnite zeigt, wie Gaming zu einem sozialen Treffpunkt werden kann. Spiele wie The Last of Us Part II erzählen emotionale Geschichten auf einem Niveau, das mit Filmen vergleichbar ist. Dabei verschwimmen die Grenzen zwischen Spiel, Film und Kunst immer mehr.
+
+Ein Besuch in einer Ausstellung über modernes Gaming ist daher ein Blick in die Zukunft und Gegenwart zugleich. Interaktive Stationen, Virtual-Reality-Erlebnisse und beeindruckende Inszenierungen machen deutlich, wie vielfältig Gaming heute ist. Man kann selbst eintauchen, ausprobieren und verstehen, warum Millionen Menschen weltweit täglich spielen.
+
+Heutiges Gaming zeigt eindrucksvoll, wie aus einer einfachen Idee eine der größten Kulturformen unserer Zeit geworden ist. Es verbindet Menschen, erzählt Geschichten und schafft Erlebnisse, die weit über den Bildschirm hinausgehen – und genau deshalb ist es so faszinierend, diese Welt selbst zu entdecken.
+</p>
+</div>
+    </section>
+
+    <script>
+      // 10 Fakten
+      const fakten = [
+        "Die erste elektronische Spielkonsole war die Magnavox Odyssey von 1972.",
+        "Pong war eines der ersten kommerziell erfolgreichen Videospiele und kam 1975 auf den Markt.",
+        "Die Nintendo Entertainment System  revolutionierte die Gaming-Industrie in den 1980er Jahren.",
+        "Super Mario Bros. für die Nitendo Switch war das meistverkaufte Spiel seiner Zeit und prägte eine ganze Generation.",
+        "Die PlayStation von Sony kam 1994 auf den Markt und führte 3D-Grafiken in Heimkonsolen.",
+        "Der Game Boy von Nintendo war die erfolgreichste tragbare Konsole und dominierte den Markt in den 1990ern.",
+        "Tetris ist eines der meistverkauftesten Videospiele aller Zeiten mit über 100 Millionen Kopien.",
+        "Die Xbox von Microsoft startete 2001 und brachte Online-Gaming in die Wohnzimmer.",
+        "Die Grafikkarten für Gaming sind mittlerweile leistungsfähiger als die Computer aus den 1980er Jahren.",
+        "Virtual Reality ist die neueste Revolution in der Gaming-Technologie und ermöglicht immersive Spielwelten."
+      ];
+
+      
+      const faktBtn = document.getElementById('faktBtn');
+      const faktAnzeige = document.getElementById('faktAnzeige');
+
+      // Zufälliger fakt
+      function zufaelligerFakt() {
+        const randomIndex = Math.floor(Math.random() * fakten.length);
+        faktAnzeige.textContent = fakten[randomIndex];
+        faktAnzeige.classList.add('visible');
+      }
+
+     
+      faktBtn.addEventListener('click', zufaelligerFakt);
+    </script>
+  </body>
+</html>
+  
